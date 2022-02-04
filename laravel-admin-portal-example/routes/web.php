@@ -25,7 +25,6 @@ Route::post('/provision-enterprise', function(Request $request) {
     $ordId = "";
 
     if ($orgs[2] != null) {
-        echo count($orgs);
         $orgId = $orgs[2][0]->raw["id"];            
     } else {
         $newOrganization = (new \WorkOS\Organizations()) -> createOrganization($organizationName, $organizationDomains);
