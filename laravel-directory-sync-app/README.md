@@ -1,62 +1,67 @@
-# Laravel Example App with SSO powered by WorkOS
+# laraveldirectory-sync-example
 
-An example application demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-laravel) to authenticate users via SSO. 
+An example Laravel application demonstrating how Directory Sync works with WorkOS and our Laravel SDK.
 
-## Prerequisites
+## Clone and Install
 
-Laravel 4.X.XX
+1. Clone the main repo:
 
-## Laravel Project Setup
+```sh
+git clone https://github.com/workos-inc/laravel-example-applications.git
+```
 
-1. Clone the main repo and install dependencies for the app you'd like to use:
-    ```bash
-    # HTTPS
-    git clone https://github.com/workos-inc/laravel-example-applications.git
-    ```
-    or
+2. Navigate to the Laravel Directory Sync app within the main repo and install dependencies:
 
-    ```bash
-    # SSH
-    git clone git@github.com:workos-inc/laravel-example-applications.git
-    ```
-
-2. Navigate to SSO app within the cloned repo. 
-   ```bash
-   $ cd laravel-example-applications/laravel-sso-example
-   ```
-
-3. Install the dependencies. 
-    ```bash
-    $ composer i
-    $ composer require laravelcollective/html:^5.5.0
-    ```
+```sh
+cd laravel-example-applications/laravel-directory-sync-example && conposer i
+```
 
 ## Configure your environment
 
-4. Grab your API Key and Client ID from the WorkOS Dashboard. Create a `.env`
-file at the root of the project, and store these like so:
-    ```
-    WORKOS_API_KEY=sk_xxxxxxxxxxxxx
-    WORKOS_CLIENT_ID=project_xxxxxxxxxxxx
-    ```
+1. Grab your [API Key](https://dashboard.workos.com/api-keys).
+2. Run `cp .env.example .env` and add your API key. The `workos` gem will read your API key from the ENV variable `WORKOS_API_KEY`. You may also set the API key yourself by adding `WorkOS.key = $YOUR_API_KEY` to `app.rb`.
 
-## SSO Setup with WorkOS
-
-5. Follow the [SSO authentication flow instructions](https://workos.com/docs/sso/guide/introduction) to create a new SSO connection in your WorkOS dashboard.
-
-6. Add `http://localhost:8000/auth/callback` as a Redirect URI in the Configuration section of the Dashboard.
-
-7. Update `routes/web.php` with the Connection ID.
-
-## Testing the Integration
-
-8. Start the server and head to `http://localhost:8000/ to begin the login flow! 
+## Run the app
 
 ```sh
 php artisan serve
 ```
+Open another terminal and run:
+```sh
+composer require beyondcode/laravel-websockets
+```
+
+Head to `http://localhost:8000`
+
+## Testing Webhooks
+
+### 1. Click on the "Test Webhooks" button to navigate to the webhooks view.
 
 
-## Need help?
+### 2. Start an `ngrok` session
 
-If you get stuck and aren't able to resolve the issue by reading our [WorkOS Laravel SDK documentation](https://docs.workos.com/sdk/laravel), API reference, or tutorials, you can reach out to us at support@workos.com and we'll lend a hand.
+[Ngrok](https://ngrok.com/) is a simple application that allows you to map a local endpoint to a public endpoint.
+
+The application will run on http://localhost:8000. Ngrok will create a tunnel to the application so we can receive webhooks from WorkOS.
+
+```sh
+./ngrok http 8000
+```
+
+### 3. Set Up a WorkOS Endpoint
+
+Log into the [WorkOS Dashboard](https://dashboard.workos.com/webhooks) and add a Webhook endpoint with the public ngrok URL with `/webhooks` appended.
+
+The local application is listening for webhook requests at http://localhost:8000/webhooks
+
+### 4. Set Up Webhooks Secret
+
+In order for the SDK to validate that WorkOS webhooks, locate the Webhook secret from the dashboard.
+
+Then populate the following environment variable in your `.env` file at the root of the project.
+
+```sh
+WORKOS_WEBHOOK_SECRET=your_webhook_secret
+```
+
+For more information, see the [WorkOS Laravel SDK documentation](https://docs.workos.com/sdk/laravel).
