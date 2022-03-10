@@ -28,7 +28,6 @@ Laravel 4.X.XX
 3. Install the dependencies. 
     ```bash
     $ composer i
-    $ composer require laravelcollective/html:^5.5.0
     ```
 
 ## Configure your environment
