@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <h2>Ruby SSO Example App</h2>
+    <h2>Laravel SSO Example App</h2>
     <a class="button login_button" href="/auth">Login</a>
     </div>
 </div>
