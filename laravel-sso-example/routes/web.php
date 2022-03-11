@@ -20,8 +20,8 @@ Route::get('/', function () {
 
 /* When calling Get Authorization URL, you can use connection ID to associate users to the appropriate connection instead of domain */
 Route::get('/auth', function() {
-    $connection = "conn_01FTYBZH0RVADK5E596YN26G0Y";  // ... The Connection's ID
-    $redirectUri = "http://localhost:8000/auth/callback";// ... The URI WorkOS should callback to post-authentication
+    $connection = env('WORKOS_CONN_ID');
+    $redirectUri = env('WORKOS_REDIRECT_URI');// ... The URI WorkOS should callback to post-authentication
 
     $authorizationUrl = (new \WorkOS\SSO())
         ->getAuthorizationUrl(
