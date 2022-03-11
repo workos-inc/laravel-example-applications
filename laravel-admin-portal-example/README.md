@@ -32,9 +32,7 @@ Laravel 4.X.XX
 ## Configure your environment
 
 1. Grab your [API Key](https://dashboard.workos.com/api-keys).
-2. Get your [Client ID](https://dashboard.workos.com/configuration).
-3. Create a `.env` file at the root of the project and populate with the
-following environment variables (using values found above):
+2. Run `cp .env.example .env` and add all add values for all WORKOS_ prefixed environmental variables at bottom of .env file
 
 ```typescript
 WORKOS_API_KEY=your_api_key_here

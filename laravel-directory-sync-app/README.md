@@ -13,13 +13,13 @@ git clone https://github.com/workos-inc/laravel-example-applications.git
 2. Navigate to the Laravel Directory Sync app within the main repo and install dependencies:
 
 ```sh
-cd laravel-example-applications/laravel-directory-sync-example && conposer i
+cd laravel-example-applications/laravel-directory-sync-example && composer i
 ```
 
 ## Configure your environment
 
 1. Grab your [API Key](https://dashboard.workos.com/api-keys).
-2. Run `cp .env.example .env` and add your API key. The `workos` gem will read your API key from the ENV variable `WORKOS_API_KEY`. You may also set the API key yourself by adding `WorkOS.key = $YOUR_API_KEY` to `app.rb`.
+2. Run `cp .env.example .env` and add all add values for all WORKOS_ prefixed environmental variables at bottom of .env file except for the Webhook Secret which will be added later.
 
 ## Run the app
 
@@ -28,7 +28,9 @@ php artisan serve
 ```
 Open another terminal and run:
 ```sh
-composer require beyondcode/laravel-websockets
+php artisan websockets:serve
+npm install --save laravel-echo pusher-js
+npm run dev
 ```
 
 Head to `http://localhost:8000`
