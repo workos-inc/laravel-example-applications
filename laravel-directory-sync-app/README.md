@@ -1,4 +1,4 @@
-# laraveldirectory-sync-example
+# laravel-directory-sync-example
 
 An example Laravel application demonstrating how Directory Sync works with WorkOS and our Laravel SDK.
 
@@ -18,8 +18,11 @@ cd laravel-example-applications/laravel-directory-sync-example && conposer i
 
 ## Configure your environment
 
-1. Grab your [API Key](https://dashboard.workos.com/api-keys).
-2. Run `cp .env.example .env` and add your API key. The `workos` gem will read your API key from the ENV variable `WORKOS_API_KEY`. You may also set the API key yourself by adding `WorkOS.key = $YOUR_API_KEY` to `app.rb`.
+1. Grab your [API Key](https://dashboard.workos.com/api-keys), Client ID and Webhook secret from Dashboard.
+2. Run `cp .env.example .env` and add:
+    WORKOS_API_KEY=your_api_key_here
+    WORKOS_CLIENT_ID=your_project_id_here
+    WORKOS_WEBHOOK_SECRET=the_webhook_secret
 
 ## Run the app
 
