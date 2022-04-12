@@ -54,10 +54,12 @@
                                     <input class="text_input" type="text" id="totp_issuer" name="totp_issuer"
                                         placeholder="TOTP Issuer" required>
                                 </div>
+                                {{ csrf_field() }}
                                 <div class="flex">
                                     <input class="text_input" type="text" id="totp_user" name="totp_user"
                                         placeholder="User Email" required>
                                 </div>
+                                {{ csrf_field() }}
                             </div>
                             <div>
                                 <button type="submit" name="type" value="totp"

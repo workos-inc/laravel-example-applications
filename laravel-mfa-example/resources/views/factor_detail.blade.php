@@ -34,12 +34,18 @@
                         <div>
                             <p>Type: <code>{{$factor->type}}</code></p>
                             <p>Environment: <code>{{$factor->environmentId}}</code></p>
+                            @if ($factor->type == "sms") 
                             <p>Phone Number: <code>{{$phone_number}}</code></p>
+                            @endif 
                             <p>Created At: <code>{{$factor->createdAt}}</code></p>
                             <p>Updated At: <code>{{$factor->updatedAt}}</code></p>
                         </div>
                     </div>
-
+                    @if ($factor->type == "totp")                                
+                    <div class="qr_div">
+                        <img class="qr_code" src="{{$qrCode}}" alt="qr_code">
+                    </div>                              
+                    @endif
                 </div>
 
                 <div class="flex-column">
@@ -51,11 +57,12 @@
                                     <input type="text" id="sms_message" name="sms_message" class="text_input"
                                         placeholder="Custom SMS Message Input /{/{code}}'">
                                 </div>
+                                
+                                @endif                                
                                 {{ csrf_field() }}
-                                @endif
                                 <div>
                                     <button type="submit" class="button">Challenge Factor</button>
-                                </div>
+                                </div>                            
                             </div>
                         </form>
 

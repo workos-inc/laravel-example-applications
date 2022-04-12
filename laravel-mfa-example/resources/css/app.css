@@ -92,8 +92,8 @@ body {
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
-  }
-  
+}
+
 .button:hover {
     background-color: #555555;
     border: 2px solid #555555;
@@ -104,7 +104,8 @@ body {
     width: 95%;
 }
 
-h2, h1 {
+h2,
+h1 {
     text-align: center;
     color: #555555;
 }
@@ -120,6 +121,7 @@ h2, h1 {
     bottom: 10%;
 
 }
+
 .logged_in_div_left {
     width: 40%;
     height: 100vh;
@@ -174,6 +176,7 @@ div.text_box {
     height: 60px;
     padding: 7px 7px 7px 10px;
 }
+
 .logged_in_nav p {
     padding: 4px 0px 0px 15px;
     line-height: 1;
@@ -188,4 +191,14 @@ div.text_box {
 
 .logged_in_nav img:hover {
     border: 2px solid #555555;
+}
+
+.qr_div {
+    align-self: center;
+    padding-top: 15px;
+}
+
+.qr_code {
+    width: 7vw;
+    max-width: 100px;
 }

@@ -13,35 +13,41 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-
     $currentFactors = Session::get('factor_list');
-    error_log(json_encode($request->session()->get('factor_list')));
     if ($currentFactors) {
-        error_log('new factor exists');
+
         return view('list_factors', ['factors' => $currentFactors]);
     }
     session(['factor_list' => (array) null]);
-    error_log(json_encode($request->session()->get('factor_list')));
-    return view('list_factors');
+    $currentFactors = Session::get('factor_list');
+    return view('list_factors', ['factors' => $currentFactors]);
 });
 
 Route::get('/enroll_factor_details', function () {
     return view('enroll_factor');
 });
 
-Route::post('/enroll_factor', function(Request $request) {
-    $phoneNumber = $request->input('phone_number');
+Route::post('/enroll_factor', function(Request $request) {    
     $factorType = $request->input('type');
+
+    if ($factorType == 'sms' ) {
+        $phoneNumber = $request->input('phone_number');
+        $newFactor = (new \WorkOS\MFA()) -> enrollFactor($factorType, null, null, $phoneNumber);
+        $currentFactorList = Session::get('factor_list');
+        array_push($currentFactorList, $newFactor);
+        session(['factor_list' => $currentFactorList]);
+    }
     
-    $newFactor = (new \WorkOS\MFA()) -> enrollFactor($factorType, null, null, $phoneNumber);
-    error_log(gettype($newFactor));
+    if ($factorType == 'totp' ) {
+        $totpIssuer = $request->input('totp_issuer');
+        $totpUser = $request->input('totp_user');
+        $newFactor = (new \WorkOS\MFA()) -> enrollFactor($factorType, $totpIssuer, $totpUser, null);
+        error_log(gettype(json_encode($newFactor)));
+        $currentFactorList = Session::get('factor_list');
+        array_push($currentFactorList, $newFactor);
+        session(['factor_list' => $currentFactorList]);
+        }
 
-    $currentFactorList = Session::get('factor_list');
-    error_log(gettype($currentFactorList));
-
-    array_push($currentFactorList, $newFactor);
-    error_log(json_encode($currentFactorList));
-    session(['factor_list' => $currentFactorList]);
     return redirect('/');
 });
 
@@ -57,24 +63,42 @@ Route::get('/factor_detail', function (Request $request) {
         }
     }
     error_log(json_encode($currentFactor));
-    $phoneNumber = $currentFactor->sms['phone_number'];
-    $created =  $currentFactor->environmentId;
-    return view('factor_detail', [
-        'factor' => $currentFactor, 
-        'phone_number' => $phoneNumber,]);
+    if ($currentFactor->type == 'sms') {
+        $phoneNumber = $currentFactor->sms['phone_number'];
+        return view('factor_detail', [
+            'factor' => $currentFactor, 
+            'phone_number' => $phoneNumber]);
+    }
+    
+    if ($currentFactor->type == 'totp') {
+        $qrCode = $currentFactor->totp['qr_code'];
+        return view('factor_detail', [
+            'factor' => $currentFactor, 
+            'qrCode' => $qrCode]);
+    }
+    
 });
 
 Route::post('/challenge_factor', function (Request $request) {
-    $smsMessage = $request->input('sms_message');
     $currentFactor = Session::get('current_factor');
     $factorId = $currentFactor->id;
+
+    if ($currentFactor->type == 'sms') {
+        $smsMessage = $request->input('sms_message');
+        $challenge = (new \WorkOS\MFA()) -> challengeFactor($factorId, $smsMessage);
+        session(['current_challenge' => $challenge]);
+        return view('challenge_factor', [
+            'challenge' => $challenge
+        ]);
+    }
     
-    $challenge = (new \WorkOS\MFA()) -> challengeFactor($factorId, $smsMessage);
-    error_log(json_encode($challenge));
-    session(['current_challenge' => $challenge]);
-    return view('challenge_factor', [
-        'challenge' => $challenge
-    ]);
+    if ($currentFactor->type == 'totp') {
+        $challenge = (new \WorkOS\MFA()) -> challengeFactor($factorId, null);
+        session(['current_challenge' => $challenge]);
+        return view('challenge_factor', [
+            'challenge' => $challenge
+        ]);
+    }
 });
 
 Route::post('/verify_factor', function (Request $request) {
@@ -82,17 +106,10 @@ Route::post('/verify_factor', function (Request $request) {
     $currentFactor = Session::get('current_factor');
     $currentChallenge = Session::get('current_challenge');
     $factorId = $currentChallenge->id;    
-    
     $challenge = (new \WorkOS\MFA()) -> verifyFactor($factorId, $code);
     $challengeResult = $challenge->challenge;
     $id = $challengeResult['id'];
     $valid = json_encode($challenge->valid);
-
-
-    error_log(json_encode($challengeResult['id']));
-    error_log(json_encode($challenge));
-    error_log(json_encode($valid));
-
 
     return view('challenge_result', [
         'valid' => $valid,
@@ -101,43 +118,7 @@ Route::post('/verify_factor', function (Request $request) {
     ]);
 });
 
-
-
-
 Route::get('/clear_session', function (Request $request) {
     $request->session()->flush();
     return redirect('/');
-});
-
-/* When calling Get Authorization URL, you can use connection ID to associate users to the appropriate connection instead of domain */
-Route::get('/auth', function() {
-    $connection = env('WORKOS_CONN_ID');
-    $redirectUri = env('WORKOS_REDIRECT_URI');// ... The URI WorkOS should callback to post-authentication
-
-    $authorizationUrl = (new \WorkOS\SSO())
-        ->getAuthorizationUrl(
-            null,
-            $redirectUri,
-            null,
-            null,
-            $connection
-        );
-    return redirect($authorizationUrl);
-});
-
-Route::get('auth/callback', function(Request $request) {
-    $code = $request->input("code");
-    // $profile = (new \WorkOS\SSO())->getProfileAndToken($code);
-    $profileAndToken = (new \WorkOS\SSO())->getProfileAndToken($code);
-
-    // Use the information in `profile` for further business logic.
-    $profile = $profileAndToken->profile;
-    session(['profile' => $profile]);
-
-    return view('login', ['profile' => $profile]);
-});
-
-Route::get('/logout', function () {
-    session()->forget('profile');
-    return view('login', ['profile' => NULL]);
 });
