@@ -1,6 +1,6 @@
 # Laravel Example App with SSO powered by WorkOS
 
-An example application demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-laravel) to authenticate users via SSO. 
+An example application demonstrating to use the [WorkOS MFA API](https://workos.com/docs/mfa/guide) and the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-laravel) to authenticate users. 
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ Laravel 4.X.XX
 
 2. Navigate to SSO app within the cloned repo. 
    ```bash
-   $ cd laravel-example-applications/laravel-sso-example
+   $ cd laravel-example-applications/laravel-mfa-example
    ```
 
 3. Install the dependencies. 
@@ -39,23 +39,28 @@ file at the root of the project, and store these like so:
     WORKOS_CLIENT_ID=project_xxxxxxxxxxxx
     ```
 
-## SSO Setup with WorkOS
-
-5. Follow the [SSO authentication flow instructions](https://workos.com/docs/sso/guide/introduction) to create a new SSO connection in your WorkOS dashboard.
-
-6. Add `http://localhost:8000/auth/callback` as a Redirect URI in the Configuration section of the Dashboard.
-
-7. Update `routes/web.php` with the Connection ID.
-
 ## Testing the Integration
 
-8. Start the server and head to `http://localhost:8000/ to begin the login flow! 
+5. Start the server and head to `http://localhost:8000/ to begin the login flow! 
 
 ```sh
 php artisan serve
 ```
 
+## Using the MFA application
+
+6. This application is meant to showcase the MFA API and how to interact with it using the WorkOS Laravel SDK. It is not meant to show a real-life example of how MFA should be implemented. 
+
+   The app supports two types of MFA flows, SMS and Time-based One Time Password (TOTP). 
+
+   SMS: The SMS flow requires you to send a code via text message. You can customize this message, but the message must include the string "{{code}}". This string of characters tells the WorkOS API to generate a random code that will be populated automatically. If "{{code}}" is not included in the message, the authentication cannot be completed. 
+
+   TOTP: This type of authentication requires the use of a 3rd party authentication app (1Password, Authy, Google Authenticator, Microsoft Authenticator, Duo, etc). Scan the QR code from the Factor Details page to create the corresponding factor in the 3rd party app, then enter the time-based password when prompted in this MFA application.  
+
+   TOTP NOTE - Since all storage is being done via browser cookies, a limited number of TOTP type connections can be added at a time to this app due to limitations on the size of the cookies that browsers can store. This is due to the size of the QR code. 
 
 ## Need help?
 
-If you get stuck and aren't able to resolve the issue by reading our [WorkOS Laravel SDK documentation](https://docs.workos.com/sdk/laravel), API reference, or tutorials, you can reach out to us at support@workos.com and we'll lend a hand.
+First, make sure to reference the MFA docs at https://workos.com/docs/mfa/guide. 
+
+If you get stuck and aren't able to resolve the issue by reading our API reference or tutorials, you can reach out to us at support@workos.com and we'll lend a hand.

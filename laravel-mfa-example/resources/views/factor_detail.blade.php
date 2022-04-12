@@ -4,8 +4,7 @@
         <div class="flex">
             <p>MFA Example Application</p>
         </div>
-        <div>
-            
+        <div>            
             <img src="{{ URL::to('/')}}/images/workos_logo_new.png" alt="workos logo">
         </div>
     </div>
