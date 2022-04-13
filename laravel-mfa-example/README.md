@@ -1,4 +1,4 @@
-# Laravel Example App with SSO powered by WorkOS
+# Laravel Example App with MFA powered by WorkOS
 
 An example application demonstrating to use the [WorkOS MFA API](https://workos.com/docs/mfa/guide) and the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-laravel) to authenticate users. 
 
@@ -20,7 +20,7 @@ Laravel 4.X.XX
     git clone git@github.com:workos-inc/laravel-example-applications.git
     ```
 
-2. Navigate to SSO app within the cloned repo. 
+2. Navigate to MFA app within the cloned repo. 
    ```bash
    $ cd laravel-example-applications/laravel-mfa-example
    ```
@@ -32,7 +32,15 @@ Laravel 4.X.XX
 
 ## Configure your environment
 
-4. Grab your API Key and Client ID from the WorkOS Dashboard. Create a `.env`
+4. Create a new file at the root of the laravel-mfa-example project called `.env`. Copy and paste the contents of the file called `dotenv_template` into the new `.env` file that you just created. 
+
+5. In the terminal, at the root of the laravel-mfa-example project, run the following command to generate the project api key.
+```sh
+php artisan key:generate
+```
+You should now see the API_KEY value filled in on line 3 of the .env file. 
+
+6. Grab your API Key and Client ID from the WorkOS Dashboard. Create a `.env`
 file at the root of the project, and store these like so:
     ```
     WORKOS_API_KEY=sk_xxxxxxxxxxxxx
@@ -41,7 +49,7 @@ file at the root of the project, and store these like so:
 
 ## Testing the Integration
 
-5. Start the server and head to `http://localhost:8000/ to begin the login flow! 
+7. Start the server and head to `http://localhost:8000/ to begin the login flow! 
 
 ```sh
 php artisan serve
@@ -49,7 +57,7 @@ php artisan serve
 
 ## Using the MFA application
 
-6. This application is meant to showcase the MFA API and how to interact with it using the WorkOS Laravel SDK. It is not meant to show a real-life example of how MFA should be implemented. 
+8. This application is meant to showcase the MFA API and how to interact with it using the WorkOS Laravel SDK. It is not meant to show a real-life example of how MFA should be implemented. 
 
    The app supports two types of MFA flows, SMS and Time-based One Time Password (TOTP). 
 
