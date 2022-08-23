@@ -38,7 +38,7 @@
       <div class="flex_column">
       <h2>You did it! You logged in without a password!</h2>
     <div class="text_box">
-        <pre class="prettyprint">>{{$profile}}</pre>
+        <pre class="prettyprint">{{$profile}}</pre>
     </div>
 
       </div>
