@@ -38,7 +38,15 @@
                         {{print_r($user -> rawAttributes)}}
 
                     </li>
+                    <li>
+                        CUSTOM ATTRIBUTES
+                    </li>
+                    <li>
+                        {{print_r($user -> customAttributes)}}
 
+                    </li>
+
+                
                     @if ($user -> groups)
                         <li class = "attribute_title">
                         <strong> Groups</strong>

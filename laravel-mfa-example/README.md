@@ -1,6 +1,6 @@
 # Laravel Example App with MFA powered by WorkOS
 
-An example application demonstrating to use the [WorkOS MFA API](https://workos.com/docs/mfa/guide) and the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-laravel) to authenticate users. 
+An example application demonstrating to use the [WorkOS MFA API](https://workos.com/docs/mfa/guide) and the [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) to authenticate users. 
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ Laravel 4.X.XX
 1. Clone the main repo and install dependencies for the app you'd like to use:
     ```bash
     # HTTPS
-    git clone https://github.com/workos-inc/laravel-example-applications.git
+    git clone https://github.com/workos/laravel-example-applications.git
     ```
     or
 
