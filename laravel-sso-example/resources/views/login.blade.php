@@ -51,7 +51,7 @@
     <div class='flex_column'>
     <div class="flex heading_div">
         <div class="heading_text_div">
-            <h1>WorkOS</h1>
+            <img src="{{ URL::to('/assets/img/workos-logo-with-text.png') }}"alt="workos logo">
         </div>
     </div>
 

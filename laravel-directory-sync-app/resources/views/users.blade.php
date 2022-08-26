@@ -42,9 +42,8 @@
 
                 <ul style="list-style: none;">
                 @foreach ($users as $user)
-                        <h4 class = "center">{{$user -> firstName}} {{$user -> lastName}} - {{$user->id}}<h4>
                         <li class = "center">
-                            <a href="{{ url('directory/'.$directoryId . '/users/'.$user->id) }}"><button class='button'>View User</button></a>
+                            <a href="{{ url('directory/'.$directoryId . '/users/'.$user->id) }}"><button class='button'>{{$user -> firstName}} {{$user -> lastName}} - {{$user->id}}</button></a>
                         </li>
 
                 @endforeach
@@ -60,14 +59,10 @@
     @else
     <div class="container_login">
         <div class='flex_column'>
-        <div class="flex heading_div">
-            <div class="heading_text_div">
-                <h1>WorkOS</h1>
-            </div>
+            <h2 class = 'title_column'>You don't have any users yet for this directory</h2>
+            <a href="{{ url('/') }}"><button class='button back'> ❮ Back </button></a>
         </div>
-        <h2>You don't have any users yet for this directory</h2>
-        </div>
-        <a href="{{ url('/') }}"><button class='button back'> ❮ Back </button></a>
     </div>
+
 @endif
 

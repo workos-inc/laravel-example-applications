@@ -35,7 +35,7 @@
         </div>
   <div class="logged_in_div_right">
       <div class="flex_column">
-      <h2>Here is your Magic Link, {{$email}} 🪄</h2> 
+      <h2>We've sent the Magic Link email! Check {{$email}} for the email and click the link in it.🪄</h2> 
 
       </div>
   </div>

@@ -257,3 +257,7 @@ body {
     color: black;
     cursor: default; 
 }
+
+.title_column {
+  width: 80vh;
+}

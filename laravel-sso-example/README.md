@@ -45,7 +45,9 @@ file at the root of the project, and store these like so:
 
 6. Add `http://localhost:8000/auth/callback` as a Redirect URI in the Configuration section of the Dashboard.
 
-7. Update `routes/web.php` with the Connection ID.
+7. Update `env` with:
+WORKOS_CONN_ID=conn_xxxxxxxxxxxxx (connection ID being tested)
+WORKOS_REDIRECT_URI=https://xxxxxxxxxxxxx (redirect URI being used)
 
 ## Testing the Integration
 

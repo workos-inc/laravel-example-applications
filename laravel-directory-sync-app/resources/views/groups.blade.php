@@ -61,13 +61,8 @@
     @else
     <div class="container_login">
         <div class='flex_column'>
-        <div class="flex heading_div">
-            <div class="heading_text_div">
-                <h1>WorkOS</h1>
-            </div>
-        </div>
-        <h2>You don't have any groups yet for this directory</h2>
-        <a href="{{ url('/') }}"><button class='button back'> ❮ Back </button></a>
+            <h2 class = 'title_column'>You don't have any groups yet for this directory</h2>
+            <a href="{{ url('/') }}"><button class='button back'> ❮ Back </button></a>
         </div>
     </div>
 @endif
