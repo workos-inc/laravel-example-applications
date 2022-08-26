@@ -285,4 +285,5 @@ body {
   .qr_code {
     width: 7vw;
     max-width: 100px;
+    padding-top: 5vh;
   }

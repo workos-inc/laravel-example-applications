@@ -35,7 +35,7 @@
         </div>
   <div class="logged_in_div_right">
   <div class="flex_column">
-        <div class="flex space_between width_40vw">
+        <div class="flex space_between width-40vw">
  
 
             <div class="flex space-between">
@@ -59,7 +59,7 @@
                 </div>
             @endforeach                 
         @else
-        <div class="mt-20 card width_40vw">
+        <div class="mt-20 card width-40vw">
             <p style="text-align: center; color: gray;">No Current Factors</p>
         </div>
         @endif
