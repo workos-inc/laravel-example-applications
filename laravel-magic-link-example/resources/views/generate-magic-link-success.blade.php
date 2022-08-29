@@ -1,6 +1,5 @@
 {{ Html::style('css/styles.css'); }}
 
-
 <div class="logged_in_nav">
         <div class="flex">
             <div>
@@ -36,26 +35,8 @@
         </div>
   <div class="logged_in_div_right">
       <div class="flex_column">
-      <h1>Send a magic link</h1>
-        <hr style="width:100%">
-
-        <form method="POST" action="/passwordless">
-            <div class="flex_column">
-                <div class="form-group">
-                    <textarea name="email" id="email" name="email" class="text_input" placeholder='Enter the email' required></textarea>  
-                    @if ($errors->has('email'))
-                        <span class="text-danger">{{ $errors->first('email') }}</span>
-                    @endif
-                </div>
-                <br>
-                <div class="form-group">
-                    <button type="submit" class="button">Send Email</button>
-                </div>
-            {{ csrf_field() }}
-            </div>
-        </form>
+      <h2>We've sent the Magic Link email! Check {{$email}} for the email and click the link in it.🪄</h2> 
 
       </div>
   </div>
 </div>
-

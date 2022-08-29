@@ -1,6 +1,6 @@
 # Laravel Example App with SSO powered by WorkOS
 
-An example application demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-laravel) to authenticate users via SSO. 
+An example application demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) to authenticate users via SSO. 
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ Laravel 4.X.XX
 1. Clone the main repo and install dependencies for the app you'd like to use:
     ```bash
     # HTTPS
-    git clone https://github.com/workos-inc/laravel-example-applications.git
+    git clone https://github.com/workos/laravel-example-applications.git
     ```
     or
 
@@ -45,7 +45,9 @@ file at the root of the project, and store these like so:
 
 6. Add `http://localhost:8000/auth/callback` as a Redirect URI in the Configuration section of the Dashboard.
 
-7. Update `routes/web.php` with the Connection ID.
+7. Update `env` with:
+WORKOS_CONN_ID=conn_xxxxxxxxxxxxx (connection ID being tested)
+WORKOS_REDIRECT_URI=https://xxxxxxxxxxxxx (redirect URI being used)
 
 ## Testing the Integration
 

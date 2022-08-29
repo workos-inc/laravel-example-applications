@@ -7,7 +7,7 @@ An example Laravel application demonstrating how Directory Sync works with WorkO
 1. Clone the main repo:
 
 ```sh
-git clone https://github.com/workos-inc/laravel-example-applications.git
+git clone https://github.com/workos/laravel-example-applications.git
 ```
 
 2. Navigate to the Laravel Directory Sync app within the main repo and install dependencies:

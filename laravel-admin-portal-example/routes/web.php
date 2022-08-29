@@ -20,7 +20,7 @@ Route::get('/', function() {
 
 Route::post('/provision-enterprise', function(Request $request) {
     $organizationName = $request->input("org"); # ... The name of the Enterprise to provision
-    $organizationDomains =  explode(",", $request->input("domain"));  # ... The list of domains the Enterprise uses
+    $organizationDomains =  explode(" ", $request->input("domain"));  # ... The list of domains the Enterprise uses
     $orgs = (new \WorkOS\Organizations()) -> listOrganizations($organizationDomains);
     $ordId = "";
 

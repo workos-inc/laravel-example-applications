@@ -55,6 +55,6 @@ Route::post('/passwordless', function(Request $request) {
     // Send an email to the user via WorkOS with the link to authenticate
     $passwordless->sendSession($session);
 
-    return view('success', ['email' => $email]);
+    return view('generate-magic-link-success', ['email' => $email]);
     // Finally, redirect to a "Check your email" page
 });

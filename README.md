@@ -1,6 +1,6 @@
 # Laravel Example Applications powered by WorkOS
 
-Example applications demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos-inc/workos-php-laravel) for SSO, Directory Sync, Admin Portal and Magic Link.
+Example applications demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos/workos-php-laravel) for SSO, Directory Sync, Admin Portal and Magic Link.
 
 ## For more information, please see the following guides:
 
