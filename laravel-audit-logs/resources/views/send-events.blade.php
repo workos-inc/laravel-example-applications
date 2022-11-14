@@ -46,7 +46,7 @@
                     <div class="flex space-evenly width-40vw margin-b-25">
                         <div>
                             <div class="button button-outline width-15vw">
-                                <a href="https://workos.com/docs/audit-logs" target="_blank"><p>Audit Logs Docs</p></a>                            
+                                <a href="https://workos.com/docs/audit-logs"><p>Audit Logs Docs</p></a>                            
                             </div>                    
                         </div>
                         <div>
