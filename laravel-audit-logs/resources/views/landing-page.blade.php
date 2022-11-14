@@ -10,7 +10,7 @@
                 <div class="flex_column">
                     <div class="form-group">
                         <input class="text-input" type="text" id="orgID" name="orgID">
-                        <br>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="button">Submit Organization ID</button>
                     </div>

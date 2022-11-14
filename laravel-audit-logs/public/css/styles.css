@@ -1,3 +1,4 @@
+
 body {
   font-family: Inter, sans-serif;
   background-color: #f9f9fb;
@@ -452,6 +453,6 @@ pre.prettyprint {
   background-color: #FFBABA;
 }
 
-.form-group {
+/* .form-group {
   text-align: center;
-}
+} */
