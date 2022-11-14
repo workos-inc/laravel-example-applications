@@ -451,3 +451,7 @@ pre.prettyprint {
   color: #D8000C;
   background-color: #FFBABA;
 }
+
+.form-group {
+  text-align: center;
+}

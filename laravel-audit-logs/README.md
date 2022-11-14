@@ -1,6 +1,6 @@
 # Laravel Example App with Audit Logs powered by WorkOS
 
-An example application demonstrating to use the [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) to authenticate users via SSO. 
+An example application demonstrating how to use [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) Audit Logs. 
 
 ## Prerequisites
 
@@ -20,9 +20,9 @@ Laravel 4.X.XX
     git clone git@github.com:workos-inc/laravel-example-applications.git
     ```
 
-2. Navigate to SSO app within the cloned repo. 
+2. Navigate to Audit Logs app within the cloned repo. 
    ```bash
-   $ cd laravel-example-applications/laravel-sso-example
+   $ cd laravel-example-applications/laravel-audit-logs
    ```
 
 3. Install the dependencies. 
