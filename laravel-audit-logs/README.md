@@ -29,11 +29,9 @@ Laravel 4.X.XX
     ```bash
     $ composer i
     ```
-
 ## Configure your environment
 
-4. Grab your API Key and Client ID from the WorkOS Dashboard. Create a `.env`
-file at the root of the project, and store these like so:
+4. Grab your API Key and Client ID from the WorkOS Dashboard. Rename .env.example to `.env`, run `artisan key:generate` and then fill out the following information below:
     ```
     WORKOS_API_KEY=sk_xxxxxxxxxxxxx
     WORKOS_CLIENT_ID=project_xxxxxxxxxxxx
