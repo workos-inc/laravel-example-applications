@@ -1,6 +1,6 @@
 # Laravel Example App with Audit Logs powered by WorkOS
 
-An example application demonstrating how to use [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) Audit Logs. 
+An example Flask application demonstrating how to use the [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) to send and retrieve Audit Log events. This example is not meant to show a real-world example of an Audit Logs implementation, but rather to show concrete examples of how events can be sent using the Laravel SDK.
 
 ## Prerequisites
 
@@ -9,10 +9,12 @@ Laravel 4.X.XX
 ## Laravel Project Setup
 
 1. Clone the main repo and install dependencies for the app you'd like to use:
+
     ```bash
     # HTTPS
     git clone https://github.com/workos/laravel-example-applications.git
     ```
+
     or
 
     ```bash
@@ -20,15 +22,17 @@ Laravel 4.X.XX
     git clone git@github.com:workos-inc/laravel-example-applications.git
     ```
 
-2. Navigate to Audit Logs app within the cloned repo. 
-   ```bash
-   $ cd laravel-example-applications/laravel-audit-logs
-   ```
+2. Navigate to Audit Logs app within the cloned repo.
 
-3. Install the dependencies. 
+    ```bash
+    $ cd laravel-example-applications/laravel-audit-logs
+    ```
+
+3. Install the dependencies.
     ```bash
     $ composer i
     ```
+
 ## Configure your environment
 
 4. Grab your API Key and Client ID from the WorkOS Dashboard. Rename .env.example to `.env`, run `artisan key:generate` and then fill out the following information below:
@@ -53,15 +57,26 @@ Action title: "user.connection_deleted" | Target type: "team"
 
 8. To obtain a CSV of the Audit Log events that were sent for the last 30 days, click the "Export Events" button. This will bring you to a new page where you can download the events. Downloading the events is a 2 step process. First you need to create the report by clicking the "Generate CSV" button. Then click the "Access CSV" button to download a CSV of the Audit Log events for the selected Organization for the past 30 days.
 
-
 ## Testing the Integration
 
-9. Start the server and head to `http://localhost:8000/ to begin the login flow! 
+9. Start the server and head to `http://localhost:8000/ to begin the login flow!
 
 ```sh
 php artisan serve
 ```
 
+## Audit Logs Setup with WorkOS
+
+10. Follow the [Audit Logs configuration steps](https://workos.com/docs/audit-logs/emit-an-audit-log-event/sign-in-to-your-workos-dashboard-account-and-configure-audit-log-event-schemas) to set up the following 2 events that are sent with this example:
+
+Action title: "user.organization_set" | Target type: "team"
+Action title: "user.organization_deleted" | Target type: "team"
+
+11. Configure the Admin Portal Redirect URI.
+
+Navigate to the Configuration tab in your WorkOS Dshboard. From there click the Admin Portal tab. Click the Edit Admin Portal Redirect Links button and add "http://localhost:8000" to the "When clicking the back navigation, return users to:" input, then click Save Redirect Links.
+
+12. To obtain a CSV of the Audit Log events that were sent for the last 30 days, click the "Export Events" tab. This will bring you to a new page where you can download the events. Downloading the events is a 2 step process. First you need to create the report by clicking the "Generate CSV" button. Then click the "Access CSV" button to download a CSV of the Audit Log events for the selected Organization for the past 30 days. You may also adjust the time range using the form inputs.
 
 ## Need help?
 

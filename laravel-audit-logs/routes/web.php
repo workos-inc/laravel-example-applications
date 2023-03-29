@@ -1,6 +1,8 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use WorkOS\DirectorySync;
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,89 +14,103 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing-page');
-});
-
-
-/* When calling Get Authorization URL, you can use connection ID to associate users to the appropriate connection instead of domain */
-Route::post('/organization', function(Request $request) {
-    try {
-        $organization = (new \WorkOS\Organizations()) -> getOrganization(
-            $request->input('orgID')
-        );
-        session(['organization' => $organization]);
-        return view('send-events', ['organization' => $organization]);
-    } catch (\Exception $e){
-        Session::flash('message', 'ERROR:' . $e->getMessage());
-        return redirect()->to('/')->with('data', $e->getMessage());;
+Route::get('/', function (Request $request) {
+    Session::flush();
+    if ($request) {
+        $before = $request->input('before');
+        $after = $request->input('after');
     }
-});
-
-Route::post('/send_event', function(Request $request) {
-    include '../app/includes/audit_log_events.php';
-    $organization = Session::get('organization');
-    $eventId = $request->input('event');
-
-    if($eventId === '0'){
-        $event = $user_signed_in;
-    } else if($eventId === '1'){
-        $event = $user_logged_out;
-    } else if($eventId === '2'){
-        $event = $user_organization_deleted;
-    } else if($eventId === '3'){
-        $event = $user_connection_deleted;
-    }
-
-    $auditLogs = new WorkOS\AuditLogs();
-    $auditLogs->createEvent(
-        organizationId: $request->input('orgID'),
-        event: $event,
+    $listOrganizations = new WorkOS\Organizations();
+    [$before, $after, $organizations] = $listOrganizations->listOrganizations(
+        limit: 5,
+        before: $before,
+        after: $after,
+        order: null
     );
-     return redirect('/organization');
+    return view('landing-page', ['organizations' => $organizations, 'after' => $after, 'before' => $before]);
 });
 
-Route::get('/organization', function() {   
-    $organization = Session::get('organization');
-    Session::flash('message', "Event Sent");
-    return view('send-events', ['organization' => $organization]);
+
+Route::get('/set_org', function(Request $request) {
+    $organizationId = $request->input('organization_id');
+    $organization = (new \WorkOS\Organizations()) -> getOrganization($organizationId);
+    return view('send-events', ['organization' => $organization, ]);
 });
 
-Route::get('export_events', function() {
-    $organization = Session::get('organization');
 
-    return view('export-events', ['organization' => $organization]);
+Route::post('/send_events', function(Request $request) {
+    $version = $request->input('event_version');
+    $actorName = $request->input('actor_name');
+    $actorType = $request->input('actor_type');
+    $targetName = $request->input('target_name');
+    $targetType = $request->input('target_type');
+    $organizationId = $request->input('organization_id');
+    $event = [ 
+        "action" => "user.organization_deleted",
+        "occurred_at" => date("c"),
+        "version" => (int)$version,
+        "actor" => [
+            "id" => "user_01GBNJC3MX9ZZJW1FSTF4C5938",
+            "name" => $actorName,
+            "type" => $actorType,
+        ],
+        "targets" => [
+            [
+                "id" => "team_01GBNJD4MKHVKJGEWK42JNMBGS",
+                "name" => $targetName,
+                "type" => $targetType,
+            ],
+        ],
+        "context" => [
+            "location" => "123.123.123.123",
+            "user_agent" => "Chrome/104.0.0.0",
+        ],
+    ];
+
+    $auditLogsEvent = (new \WorkOS\AuditLogs()) -> createEvent(
+        organizationId: $organizationId,
+        event: $event
+    );
+    return redirect('/set_org?organization_id='.$organizationId)->with('message', 'Message Sent');  
+
 });
 
-Route::get('/logout', function() {
-    $organization = Session::get('organization');
-    Session::forget('key');
-    return redirect ('/');
-});
 
-Route::post('get_events', function(Request $request){
-    $requestType = $request->input('event');
-    $organization = Session::get('organization');
-    if ($requestType == 'generate_csv'){
+Route::post('get_events', function(Request $request) {
+    $organizationId = $request->input('organization_id');
+    $event = $request->input('event');
+    $rangeEnd = $request->input('range_end');
+    $rangeStart = $request->input('range_start');
+
+    if($event === "generate_csv"){
         $createExport = (new \WorkOS\AuditLogs()) -> createExport(
-            organizationId: $organization->id,
-            rangeStart: (new \DateTime('-1 month',new \DateTimeZone("UTC")))->format(\DateTime::ATOM),
-            rangeEnd: (new \DateTime('now',new \DateTimeZone("UTC")))->format(\DateTime::ATOM)
+            organizationId: $organizationId,
+            rangeStart: $rangeStart,
+            rangeEnd: $rangeEnd
         );
         session(['createExport' => $createExport]);
-        Session::flash('message', "CSV is generated");
-        return redirect('/export_events');
-    }
-    else if ($requestType == 'access_csv' && Session::get('createExport')) {
+        return redirect('/set_org?organization_id='.$organizationId)->with('message', 'Log Export Generated');  
+
+    } 
+    
+    if($event === "access_csv"){
         $fetchExport = (new \WorkOS\AuditLogs()) -> getExport(
             strval(Session::get('createExport')->id)
         );
         Session::flash('message', "CSV is downloading");
         return redirect($fetchExport -> url);
     }
-    else {
-        Session::flash('message', "Please generate a CSV first");
-        return redirect('/export_events');
-    }
+
+});
+
+Route::get('/events', function(Request $request) {   
+    $organizationId = $request->input('organization_id');
+    $intent = $request->input('intent');
+    $portal = new WorkOS\Portal();
+    $portalLink = $portal->generateLink(
+        organization: $organizationId,
+        intent: $intent);
+    $portalLink = $portalLink -> toArray();
+    return redirect($portalLink["link"]);
 
 });
