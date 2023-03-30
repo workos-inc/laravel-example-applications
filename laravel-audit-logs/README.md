@@ -1,6 +1,6 @@
 # Laravel Example App with Audit Logs powered by WorkOS
 
-An example Flask application demonstrating how to use the [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) to send and retrieve Audit Log events. This example is not meant to show a real-world example of an Audit Logs implementation, but rather to show concrete examples of how events can be sent using the Laravel SDK.
+An example Laravel application demonstrating how to use the [WorkOS Laravel SDK](https://github.com/workos/workos-laravel) to send and retrieve Audit Log events. This example is not meant to show a real-world example of an Audit Logs implementation, but rather to show concrete examples of how events can be sent using the Laravel SDK.
 
 ## Prerequisites
 
