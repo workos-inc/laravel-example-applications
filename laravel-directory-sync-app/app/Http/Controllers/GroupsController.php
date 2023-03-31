@@ -52,7 +52,6 @@ class GroupsController extends Controller
     {
         $directoryGroupId = $groupId;  // ... The ID of the Directory Group to fetch
         $group = (new \WorkOS\DirectorySync())->getGroup($directoryGroupId);
-        var_dump($group);
         return view('group', ['group' => $group, 'directoryId' => $id]);
     }
 
