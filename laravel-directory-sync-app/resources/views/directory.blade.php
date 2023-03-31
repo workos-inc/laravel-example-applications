@@ -1,7 +1,6 @@
 {{ Html::style('css/styles.css'); }}
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
 
-
 <div class="logged_in_nav">
         <div class="flex">
             <div>
@@ -35,30 +34,35 @@
                         Sales</button></a>
             </div>
         </div>
-    <div class="logged_in_div_right">
-        <div class="flex_column">
-            <h2>Group</h2>
-            <div class="text_box">
-                <h4 class="center">{{$group -> name}} - {{$group -> id}}</h4>
-
-                <ul style="list-style: none;">
-
-                    <li class = "center">
-                    </li>
-
-                    <li>
-                        <strong> Raw Attributes</strong>
-                    </li>
-                    <li>
-                    <pre class="prettyprint">{{print_r($group)}}</pre>
-                        
-                    </div>
-
-                </ul>
-
+        <div class="logged_in_div_right">
+            <div class="flex_column">
+                <h2>Users</h2>
+                <div class="text_box">
+                    <ul>
+                    @foreach ($users as $user)
+                        <li>
+                        <a href="{{url('directory/'.$directoryId.'/users/'.$user->id)}}">
+                            {{$user->username}}
+                        </a>
+                        </li>
+                    @endforeach
+                    </ul>
+                </div>
+                <h2>Groups</h2>
+                <div class="text_box">
+                    <ul>
+                        @foreach ($groups as $group)
+                        <li>
+                        <a href="{{url('directory/'.$directoryId.'/groups/'.$group->id)}}">
+                            {{$group->name}}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
-            <a href="{{ url('directory/'.$directoryId) }}"><button class='button back'> ❮ Back </button></a>
-
+            <a href="/"><button class='button back'> ❮ Back </button></a>
+ 
         </div>
     </div>
 </div>

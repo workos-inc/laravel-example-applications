@@ -81,7 +81,7 @@
                 </ul>
 
             </div>
-            <a href="{{ url('/') }}"><button class='button back'> ❮ Back </button></a>
+            <a href="{{ url('directory/'.$directoryId) }}"><button class='button back'> ❮ Back </button></a>
 
         </div>
     </div>
