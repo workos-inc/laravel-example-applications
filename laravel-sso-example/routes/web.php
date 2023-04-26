@@ -14,23 +14,39 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     $profile = Session::get('profile');
-    return view('login', ['profile' => $profile]);
+    $profileString = json_encode($profile, JSON_PRETTY_PRINT);
+    return view('login', ['profile' => $profile, 'profileString' => $profileString]);
 });
 
 
-/* When calling Get Authorization URL, you can use connection ID to associate users to the appropriate connection instead of domain */
-Route::get('/auth', function() {
-    $connection = env('WORKOS_CONN_ID');
+/* When calling Get Authorization URL, you can use organization ID to associate users to the appropriate connection */
+Route::post('/auth', function() {
+    $organization = env('WORKOS_ORGANIZATION_ID');
     $redirectUri = env('WORKOS_REDIRECT_URI');// ... The URI WorkOS should callback to post-authentication
 
-    $authorizationUrl = (new \WorkOS\SSO())
-        ->getAuthorizationUrl(
-            null,
-            $redirectUri,
-            null,
-            null,
-            $connection
-        );
+    $loginType = $_POST['login_method'];
+
+        // Set the organization or provider based on the login type
+        if ($loginType == "saml") {
+            $authorizationUrl = (new \WorkOS\SSO())
+            ->getAuthorizationUrl(
+                null, //domain is deprecated, use organization instead
+                $redirectUri, //redirectURI
+                [], //state array, also empty
+                null, //Provider which can remain null unless being used
+                null, //Connection which is the WorkOS Organization ID,
+                $organization //organization ID, to identify connection based on organization ID,
+            );
+        } else {
+            $authorizationUrl = (new \WorkOS\SSO())
+            ->getAuthorizationUrl(
+                null, //domain is deprecated, use organization instead
+                $redirectUri, //redirectURI
+                null, //state array, also empty
+                $loginType, //Provider which can remain null unless being used
+            );
+        }
+
     return redirect($authorizationUrl);
 });
 
@@ -43,7 +59,9 @@ Route::get('auth/callback', function(Request $request) {
     $profile = $profileAndToken->profile;
     session(['profile' => $profile]);
 
-    return view('login', ['profile' => $profile]);
+    $profileString = json_encode($profile, JSON_PRETTY_PRINT);
+
+    return view('login', ['profile' => $profile, 'profileString' => $profileString]);
 });
 
 Route::get('/logout', function () {

@@ -5,11 +5,11 @@
 <div class="logged_in_nav">
         <div class="flex">
             <div>
-            <img src="{{ URL::to('/assets/img/workos-logo-with-text.png') }}"alt="workos logo">
+                <img src="{{ asset('assets/img/workos-logo-with-text.png') }}" alt="workos logo">
             </div>
 
         </div>
-        <div>
+        <div class="flex">
             <a href="https://workos.com/docs" target="_blank"><button class='button nav-item'>Documentation</button></a>
             <a href="https://workos.com/docs/reference" target="_blank"><button class='button nav-item'>API
                     Reference</button></a>
@@ -18,45 +18,68 @@
             <a href="https://workos.com/" target="_blank"><button class='button button-outline'>WorkOS</button></a>
         </div>
     </div>
+
     <div class='flex'>
-        <div class="logged_in_div_left">
-            <div class="title-text">
-                <h1>Your app,</h1>
-                <h2 class="home-hero-gradient">Enterprise Ready</h2>
+
+        <div class="logged_in_div_right">
+            <div class="flex_column">
+                <div class="flex width-941px space-between">
+                    <div>
+                        <p>Profile Details</p>
+                    </div>
+                    <div>
+                        <a href="/logout"><button class="button button-outline">Log Out</button></a>
+                    </div>
+                </div>
+                <div class="width-941px">
+                    <pre id="noborder" class="prettyprint noborder">
+                        {{$profileString}}
+                    </pre>
+                </div>
             </div>
-            <div class="title-subtext">
-                <p>Start selling to enterprise customers with just a few lines of code.</p>
-                <p>Implement features like single sign-on in minutes instead of months.</p>
-            </div>
-            <div class="flex success-buttons">
-                <a href="https://workos.com/signup" target="_blank"><button class='button'>Get Started</button></a>
-                <a href="mailto:sales@workos.com?subject=WorkOS Sales Inquiry" target="_blank"><button
-                        class='button button-outline sales-button'>Contact
-                        Sales</button></a>
-            </div>
+
         </div>
-  <div class="logged_in_div_right">
-      <div class="flex_column">
-          <h2>Raw Profile Response Details</h2>
-          <div class="text_box">
-            <pre class="prettyprint">@json($profile )</pre>
-          </div>
-      </div>
-      <a class='button logout_button' href='/logout'>Sign Out</a>
-  </div>
-</div>
+    </div>
 
 @else
-<div class="container_login">
-    <div class='flex_column'>
-    <div class="flex heading_div">
-        <div class="heading_text_div">
-            <img src="{{ URL::to('/assets/img/workos-logo-with-text.png') }}"alt="workos logo">
+<div class="logged_in_nav">
+        <div class="flex">
+            <div>
+                <img src="{{ asset('assets/img/workos-logo-with-text.png') }}" alt="workos logo">
+            </div>
+
+        </div>
+        <div class="flex">
+            <a href="https://workos.com/docs" target="_blank"><button class='button nav-item'>Documentation</button></a>
+            <a href="https://workos.com/docs/reference" target="_blank"><button class='button nav-item'>API
+                    Reference</button></a>
+            <a href="https://workos.com/blog" target="_blank"><button
+                    class='button nav-item blog-nav-button'>Blog</button></a>
+            <a href="https://workos.com/" target="_blank"><button class='button button-outline'>WorkOS</button></a>
         </div>
     </div>
-
-    <h2>Laravel SSO Example App</h2>
-    <a class="button login_button" href="/auth">Login</a>
+    <div class="flex flex_column height-80vh">
+        <div class='flex height-40vh'>
+            <div class="card height-315 width-335">
+                <form method="POST" action="/auth" class="mb-0">
+                    <div class='flex_column'>
+                        <div>
+                            <span>Log in with SSO</span>
+                        </div>
+                        <hr style="width:100%; margin-top: 15px; margin-bottom: 20px;">
+                        <button id="Google" name="login_method" value="GoogleOAuth" class="card login_button google_button">
+                            <span>Google OAuth</span>
+                        </button>
+                        <button id="Microsoft" name="login_method" value="MicrosoftOAuth" class="card login_button microsoft_button">
+                            <span>Microsoft OAuth</span>
+                        </button>
+                        <button id="SAML" name="login_method" value="saml" class="card login_button saml_button mb-0">
+                            <span>Enterprise SAML</span>
+                        </button>
+                        {{ csrf_field() }}
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
 @endif
