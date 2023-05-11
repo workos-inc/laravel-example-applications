@@ -17,28 +17,26 @@ Route::get('/enroll_factor_details', function () {
     return view('enroll_factor');
 });
 
-Route::post('/enroll_factor', function(Request $request) {    
-    $factorType = $request->input('type');
-
-    if ($factorType == 'sms' ) {
-        $phoneNumber = $request->input('phone_number');
-        $newFactor = (new \WorkOS\MFA()) -> enrollFactor($factorType, null, null, $phoneNumber);
-        $currentFactorList = Session::get('factor_list');
-        array_push($currentFactorList, $newFactor);
-        session(['factor_list' => $currentFactorList]);
-    }
-    
-    if ($factorType == 'totp' ) {
-        $totpIssuer = $request->input('totp_issuer');
-        $totpUser = $request->input('totp_user');
-        $newFactor = (new \WorkOS\MFA()) -> enrollFactor($factorType, $totpIssuer, $totpUser, null);
-        error_log(gettype(json_encode($newFactor)));
-        $currentFactorList = Session::get('factor_list');
-        array_push($currentFactorList, $newFactor);
-        session(['factor_list' => $currentFactorList]);
-        }
+Route::post('/enroll_sms_factor', function(Request $request) {
+    $phoneNumber = '+1' . $request->input('phone_number');
+    $newFactor = (new \WorkOS\MFA())->enrollFactor('sms', null, null, $phoneNumber);
+    $currentFactorList = Session::get('factor_list');
+    array_push($currentFactorList, $newFactor);
+    session(['factor_list' => $currentFactorList]);
 
     return redirect('/');
+});
+
+Route::post('/enroll_totp_factor', function(Request $request) {
+    $totpIssuer = $request->input('issuer');
+    $totpUser = $request->input('user');
+    $newFactor = (new \WorkOS\MFA())->enrollFactor('totp', $totpIssuer, $totpUser, null);
+    $currentFactorList = Session::get('factor_list');
+    array_push($currentFactorList, $newFactor);
+    session(['factor_list' => $currentFactorList]);
+
+    error_log(json_encode($newFactor));
+    return response()->json($newFactor);
 });
 
 Route::get('/factor_detail', function (Request $request) {
@@ -52,7 +50,7 @@ Route::get('/factor_detail', function (Request $request) {
             break;
         }
     }
-    error_log(json_encode($currentFactor));
+
     if ($currentFactor->type == 'sms') {
         $phoneNumber = $currentFactor->sms['phone_number'];
         return view('factor_detail', [
