@@ -134,7 +134,6 @@
             })
             .then(response => response.json())
             .then(response => {
-                console.log(response.raw.totp.qr_code)
                 overlay.style.display = "block"
                 modal.innerHTML = `
                     <h2>Scan the QR code</h2>

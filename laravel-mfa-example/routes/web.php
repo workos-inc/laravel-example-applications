@@ -35,7 +35,6 @@ Route::post('/enroll_totp_factor', function(Request $request) {
     array_push($currentFactorList, $newFactor);
     session(['factor_list' => $currentFactorList]);
 
-    error_log(json_encode($newFactor));
     return response()->json($newFactor);
 });
 
