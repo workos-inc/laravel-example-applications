@@ -49,11 +49,6 @@
                             <p>Updated At: <code>{{$factor->updatedAt}}</code></p>
                         </div>
                     </div>
-                    @if ($factor->type == "totp")                                
-                    <div class="qr_div">
-                        <img class="qr_code" src="{{$qrCode}}" alt="qr_code">
-                    </div>                              
-                    @endif
                 </div>
 
                 <div class="flex-column">
