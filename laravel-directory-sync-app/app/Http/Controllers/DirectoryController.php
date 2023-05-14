@@ -5,20 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use Illuminate\Http\Request;
 
-class GroupsController extends Controller
+class DirectoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Request $request)
     {
+        if ($request) {
+            $before = $request->input('before');
+            $after = $request->input('after');
+        }
         $directorySync = new \WorkOS\DirectorySync();
-        // Fetch all Directory Users in a Directory
 
-        list($before, $after, $groups) = $directorySync->listGroups($id);
-        return view('groups', ['groups' => $groups, 'directoryId' => $id]);
+        list($before, $after, $directories) = $directorySync->listDirectories(
+            limit: 5,
+            before: $before,
+            after: $after,
+            order: null
+        );
+        return view('index', ['directories' => $directories, 'after' => $after, 'before' => $before]);
     }
 
     /**
@@ -48,11 +56,16 @@ class GroupsController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $groupId)
+    public function show($id)
     {
-        $directoryGroupId = $groupId;  // ... The ID of the Directory Group to fetch
-        $group = (new \WorkOS\DirectorySync())->getGroup($directoryGroupId);
-        return view('group', ['group' => $group, 'directoryId' => $id]);
+        $directorySync = new \WorkOS\DirectorySync();
+        // Fetch all Directory Users in a Directory
+    
+        list($before, $after, $groups) = $directorySync->listGroups($id);
+        // Fetch all Directory Users in a Directory
+    
+        list($before, $after, $users) = $directorySync->listUsers($id);
+        return view('directory', ['users' => $users, 'directoryId' => $id, 'groups' => $groups]);
     }
 
     /**

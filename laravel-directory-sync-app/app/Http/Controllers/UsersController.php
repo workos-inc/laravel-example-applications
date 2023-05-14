@@ -53,7 +53,7 @@ class UsersController extends Controller
         $user = (new \WorkOS\DirectorySync())->getUser($directoryUserId);
         // $directorySync = new \WorkOS\DirectorySync();
         // list($before, $after, $groups) = $directorySync->listGroups($directoryUserId);
-        return view('user', ['user' => $user]);
+        return view('user', ['user' => $user, 'directoryId' => $id]);
 
 
     }
