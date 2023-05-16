@@ -13,7 +13,7 @@ Route::get('/', function (Request $request) {
     return view('list_factors', ['factors' => $currentFactors]);
 });
 
-Route::get('/enroll_factor_details', function () {
+Route::get('/enroll_factor', function () {
     return view('enroll_factor');
 });
 
@@ -89,7 +89,8 @@ Route::post('/challenge_factor', function (Request $request) {
 });
 
 Route::post('/verify_factor', function (Request $request) {
-    $code = $request->input('code');
+    $codeItems = $request->only(['code-1', 'code-2', 'code-3', 'code-4', 'code-5', 'code-6']);
+    $code = implode('', $codeItems);
     $currentFactor = Session::get('current_factor');
     $currentChallenge = Session::get('current_challenge');
     $factorId = $currentChallenge->id;    
@@ -97,11 +98,13 @@ Route::post('/verify_factor', function (Request $request) {
     $challengeResult = $challenge->challenge;
     $id = $challengeResult['id'];
     $valid = json_encode($challenge->valid);
-
+    $type = $currentFactor->type;
+    
     return view('challenge_result', [
         'valid' => $valid,
         'id' => $id,
-        'challengeResult' => $challengeResult
+        'challengeResult' => $challengeResult,
+        'type' => $type
     ]);
 });
 
