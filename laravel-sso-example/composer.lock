@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2857cbac3d252b5fbf53b624bb99a847",
+    "content-hash": "5ebdd80bf47fee706c97e34bb872fe1c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5417,22 +5417,21 @@
         },
         {
             "name": "workos/workos-php",
-            "version": "v1.19.0",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/workos/workos-php.git",
-                "reference": "326db2f0e63f5a5f846ba049cdeb738fbd39a7f8"
+                "reference": "de9dd67446658951ed8c95fd4f01d9ddd5370c65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/workos/workos-php/zipball/326db2f0e63f5a5f846ba049cdeb738fbd39a7f8",
-                "reference": "326db2f0e63f5a5f846ba049cdeb738fbd39a7f8",
+                "url": "https://api.github.com/repos/workos/workos-php/zipball/de9dd67446658951ed8c95fd4f01d9ddd5370c65",
+                "reference": "de9dd67446658951ed8c95fd4f01d9ddd5370c65",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "illuminate/support": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
-                "php": ">=5.6.0"
+                "php": ">=7.3.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.15|^3.6",
@@ -5458,32 +5457,31 @@
             "homepage": "https://workos.com",
             "support": {
                 "issues": "https://github.com/workos/workos-php/issues",
-                "source": "https://github.com/workos/workos-php/tree/v1.19.9"
+                "source": "https://github.com/workos/workos-php/tree/v3.3.0"
             },
-            "time": "2022-11-10T21:55:13+00:00"
+            "time": "2023-05-04T20:44:39+00:00"
         },
         {
             "name": "workos/workos-php-laravel",
-            "version": "v1.8.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/workos/workos-php-laravel.git",
-                "reference": "ceee938c7920b3ef4d0d3502981b84bed16c2676"
+                "reference": "ddbb0c5bfc0c2f784ca17737ed6957740c6829eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/workos/workos-php-laravel/zipball/ceee938c7920b3ef4d0d3502981b84bed16c2676",
-                "reference": "ceee938c7920b3ef4d0d3502981b84bed16c2676",
+                "url": "https://api.github.com/repos/workos/workos-php-laravel/zipball/ddbb0c5bfc0c2f784ca17737ed6957740c6829eb",
+                "reference": "ddbb0c5bfc0c2f784ca17737ed6957740c6829eb",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
                 "php": ">=5.6.0",
-                "workos/workos-php": "^1.17.0"
+                "workos/workos-php": "^v3.3.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.15 || ^3.6",
-                "phpunit/phpunit": "^5.7 || ^9.5.10"
+                "phpunit/phpunit": "^5.7 || ^10.1"
             },
             "suggest": {
                 "laravel/framework": "For testing"
@@ -5515,6 +5513,7 @@
             "keywords": [
                 "SSO",
                 "laravel",
+                "laravel 10",
                 "laravel 5",
                 "laravel 6",
                 "laravel 7",
@@ -5525,9 +5524,9 @@
             ],
             "support": {
                 "issues": "https://github.com/workos/workos-php-laravel/issues",
-                "source": "https://github.com/workos/workos-php-laravel/tree/v1.8.0"
+                "source": "https://github.com/workos/workos-php-laravel/tree/v3.1.0"
             },
-            "time": "2022-10-20T23:19:41+00:00"
+            "time": "2023-05-04T22:14:06+00:00"
         }
     ],
     "packages-dev": [
