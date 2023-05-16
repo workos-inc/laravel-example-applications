@@ -18,7 +18,7 @@ Route::get('/', function() {
     return view('index');
 });
 
-Route::post('/provision-enterprise', function(Request $request) {
+Route::post('/provision_enterprise', function(Request $request) {
     $organizationName = $request->input("org"); # ... The name of the Enterprise to provision
     $organizationDomains =  explode(" ", $request->input("domain"));  # ... The list of domains the Enterprise uses
     $orgs = (new \WorkOS\Organizations()) -> listOrganizations($organizationDomains);
@@ -34,30 +34,17 @@ Route::post('/provision-enterprise', function(Request $request) {
     return view('launch-admin-portal');
 });
 
-Route::get('/dsync-admin-portal', function() {
+Route::get('/launch_admin_portal', function(Request $request) {
+    $intent = $request->query('intent');
     $orgId = Session::get('orgId');
 
     $portalLink = (new \WorkOS\Portal())
         ->generateLink(
             $orgId,
-            "sso",
+            $intent,
             null
         );
-        
+
     $portalLink = $portalLink -> toArray();
-    return redirect($portalLink["link"]);
-});
-
-Route::get('/sso-admin-portal', function() {
-    $orgId = Session::get('orgId');
-
-    $portalLink = (new \WorkOS\Portal())
-        ->generateLink(
-            $orgId,
-            "sso",
-            null
-    );
-    $portalLink = $portalLink -> toArray();
-
     return redirect($portalLink["link"]);
 });
