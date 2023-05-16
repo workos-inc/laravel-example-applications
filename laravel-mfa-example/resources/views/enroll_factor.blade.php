@@ -47,7 +47,6 @@
                             </div>
                         </form>
                     </div>
-
                     <div class="factor_card height-250px">
                         <h2>Enroll TOTP Factor</h2>
                         <div>
