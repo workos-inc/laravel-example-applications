@@ -18,31 +18,11 @@ Route::get('/', function () {
     return view('generate', ['profile' => $profile]);
 });
 
-
-/* When calling Get Authorization URL, you can use connection ID to associate users to the appropriate connection instead of domain */
-
-
-Route::get('/callback', function(Request $request) {
-    $code = $request->input("code");
-    // $profile = (new \WorkOS\SSO())->getProfileAndToken($code);
-    $profileAndToken = (new \WorkOS\SSO())->getProfileAndToken($code);
-
-    // Use the information in `profile` for further business logic.
-    $profile = $profileAndToken->profile;
-    $profile = json_encode($profile);
-
-    return view('auth-success', ['profile' => $profile]);
-});
-
-
-
-Route::post('/passwordless', function(Request $request) {
-    // Email of the user to authenticate
+Route::post('/passwordless_auth', function(Request $request) {
     $email = $request->input('email');
 
     $passwordless = new \WorkOS\Passwordless();
 
-    // Generate a session for passwordless
     $session = $passwordless->createSession(
         $email,
         null,
@@ -52,9 +32,18 @@ Route::post('/passwordless', function(Request $request) {
         null
     );
 
-    // Send an email to the user via WorkOS with the link to authenticate
     $passwordless->sendSession($session);
 
-    return view('generate-magic-link-success', ['email' => $email]);
-    // Finally, redirect to a "Check your email" page
+    return view('generate-magic-link-success', ['email' => $email, 'link' => $session->link]);
+});
+
+Route::get('/callback', function(Request $request) {
+    $code = $request->input("code");
+
+    $profileAndToken = (new \WorkOS\SSO())->getProfileAndToken($code);
+
+    $profile = $profileAndToken->profile;
+    $profile = json_encode($profile);
+
+    return view('auth-success', ['profile' => $profile]);
 });
