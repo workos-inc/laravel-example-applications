@@ -15,7 +15,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
-        "workos/workos-php-laravel": "^1.5.0"
+        "workos/workos-php-laravel": "^3.1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
