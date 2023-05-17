@@ -22,10 +22,16 @@ use WorkOS\DirectorySync;
 */
 
 Route::get('/', function () {
-
+    $before = request()->query('before');
+    $after = request()->query('after');
     $this->ds = new DirectorySync();
-    list($before, $after, $directories) = $this->ds->listDirectories();
-    return view('index', ['directories' => $directories]);
+
+    list($before, $after, $directories) = $this->ds->listDirectories(limit: 1, before: $before, after: $after);
+
+    $before = $before;
+    $after = $after;
+
+    return view('index', ['directories' => $directories, 'after' => $after, 'before' => $before]);
 });
 
 
