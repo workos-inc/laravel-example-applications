@@ -16,7 +16,7 @@
         "laravelcollective/html": "^6.2",
         "pusher/pusher-php-server": "^5.0",
         "spatie/laravel-webhook-client": "^2.7.4",
-        "workos/workos-php-laravel": "^1.5.0"    },
+        "workos/workos-php-laravel": "^3.1.0"    },
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
