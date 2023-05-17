@@ -45,14 +45,12 @@ Route::get('/directory', function () {
     ]);
 });
 
+Route::get('/directory/{id}/users', [UsersController::class, 'index'])->name('users.index');
 
-// Route::get('/directory/{id}/users', [UsersController::class, 'index'])->name('users.index');
-// Route::get('/directory/{id}/users/{userId}', [UsersController::class, 'show'])->name('users.show');
-
-// Route::get('/directory/{id}/groups', [GroupsController::class, 'index'])->name('groups.index');
-// Route::get('/directory/{id}/groups/{groupId}', [GroupsController::class, 'show'])->name('groups.show');
+Route::get('/directory/{id}/groups', [GroupsController::class, 'index'])->name('groups.index');
 
 Route::get('/webhooks', [WebhooksController::class, 'index'])->name('webhooks.index');
+
 Route::post('/webhooks', [WebhooksController::class, 'store'])->name('webhooks.store');
 
 

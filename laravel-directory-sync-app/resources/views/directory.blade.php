@@ -34,12 +34,11 @@
             </div>
             <div class="flex width-440px space-between">
                 <div class="flex">
-                    <a href="/users?id={{ $directory->id }}">
-                        <button class="button">Users</button>
+                    <a href="{{ url('directory/'.$directory->id . '/users') }}">
+                        <button class='button'>Users</button>
                     </a>
-                    <br>
-                    <a href="/groups?id={{ $directory->id }}">
-                        <button class="button">Groups</button>
+                    <a href="{{ url('directory/'.$directory->id . '/groups') }}">
+                        <button class='button'>Groups</button>
                     </a>
                 </div>
                 <div>
