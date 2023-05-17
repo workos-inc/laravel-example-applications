@@ -44,7 +44,7 @@
                         <td>{{$directory->name}}</td>
                         <td>{{$directory->id}}</td>
                         <td>
-                            <a class="button button-outline" href="{{ url('directory/'.$directory->id . '/users') }}">
+                            <a class="button button-outline" href="/directory?id={{ $directory->id }}">
                                 <x-lucide-settings-2 class="icon" style="width: 20px; height: 20px" stroke_width="1" />
                             </a>
                         </td>

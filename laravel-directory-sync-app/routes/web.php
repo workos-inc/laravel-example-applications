@@ -26,7 +26,7 @@ Route::get('/', function () {
     $after = request()->query('after');
     $this->ds = new DirectorySync();
 
-    list($before, $after, $directories) = $this->ds->listDirectories(limit: 1, before: $before, after: $after);
+    list($before, $after, $directories) = $this->ds->listDirectories(limit: 5, before: $before, after: $after);
 
     $before = $before;
     $after = $after;
@@ -34,12 +34,23 @@ Route::get('/', function () {
     return view('index', ['directories' => $directories, 'after' => $after, 'before' => $before]);
 });
 
+Route::get('/directory', function () {
+    $this->ds = new DirectorySync();
+    list($before, $after, $directories) = $this->ds->listDirectories();
 
-Route::get('/directory/{id}/users', [UsersController::class, 'index'])->name('users.index');
-Route::get('/directory/{id}/users/{userId}', [UsersController::class, 'show'])->name('users.show');
+    $directory = collect($directories)->firstWhere('id', request()->query('id'));
 
-Route::get('/directory/{id}/groups', [GroupsController::class, 'index'])->name('groups.index');
-Route::get('/directory/{id}/groups/{groupId}', [GroupsController::class, 'show'])->name('groups.show');
+    return view('directory', [
+        'directory' => $directory
+    ]);
+});
+
+
+// Route::get('/directory/{id}/users', [UsersController::class, 'index'])->name('users.index');
+// Route::get('/directory/{id}/users/{userId}', [UsersController::class, 'show'])->name('users.show');
+
+// Route::get('/directory/{id}/groups', [GroupsController::class, 'index'])->name('groups.index');
+// Route::get('/directory/{id}/groups/{groupId}', [GroupsController::class, 'show'])->name('groups.show');
 
 Route::get('/webhooks', [WebhooksController::class, 'index'])->name('webhooks.index');
 Route::post('/webhooks', [WebhooksController::class, 'store'])->name('webhooks.store');
