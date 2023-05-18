@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 @if (count($groups) > 0)
-                <div>
+                <div class="table-container">
                     <table class="width-507px">
                         <tr>
                             <th>Name</th>
