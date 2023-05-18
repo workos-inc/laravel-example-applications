@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\WebhooksController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\GroupsController;
-
+use App\Http\Controllers\DirectoryController;
 use WorkOS\DirectorySync;
 
 
@@ -21,29 +21,9 @@ use WorkOS\DirectorySync;
 |
 */
 
-Route::get('/', function () {
-    $before = request()->query('before');
-    $after = request()->query('after');
-    $this->ds = new DirectorySync();
+Route::get('/', [DirectoryController::class, 'index'])->name('directory.index');
 
-    list($before, $after, $directories) = $this->ds->listDirectories(limit: 5, before: $before, after: $after);
-
-    $before = $before;
-    $after = $after;
-
-    return view('index', ['directories' => $directories, 'after' => $after, 'before' => $before]);
-});
-
-Route::get('/directory', function () {
-    $this->ds = new DirectorySync();
-    list($before, $after, $directories) = $this->ds->listDirectories();
-
-    $directory = collect($directories)->firstWhere('id', request()->query('id'));
-
-    return view('directory', [
-        'directory' => $directory
-    ]);
-});
+Route::get('directory', [DirectoryController::class, 'show'])->name('directory.show');
 
 Route::get('/directory/{id}/users', [UsersController::class, 'index'])->name('users.index');
 
