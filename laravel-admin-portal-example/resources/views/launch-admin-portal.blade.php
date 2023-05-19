@@ -1,48 +1,70 @@
 {{ Html::style('css/styles.css'); }}
 
 <div class="logged_in_nav">
-        <div class="flex">
-            <div>
-            <img src="{{ URL::to('/images/workos-logo-with-text.png') }}"alt="workos logo">
-            </div>
-
-        </div>
+    <div class="flex">
         <div>
-            <a href="https://workos.com/docs" target="_blank"><button class='button nav-item'>Documentation</button></a>
-            <a href="https://workos.com/docs/reference" target="_blank"><button class='button nav-item'>API
-                    Reference</button></a>
-            <a href="https://workos.com/blog" target="_blank"><button
-                    class='button nav-item blog-nav-button'>Blog</button></a>
-            <a href="https://workos.com/" target="_blank"><button class='button button-outline'>WorkOS</button></a>
+            <img src="{{ URL::to('/images/workos-logo-with-text.png') }}" alt="workos logo" />
         </div>
     </div>
-    <div class='flex'>
-        <div class="logged_in_div_left">
-            <div class="title-text">
-                <h1>Your app,</h1>
-                <h2 class="home-hero-gradient">Enterprise Ready</h2>
-            </div>
-            <div class="title-subtext">
-                <p>Start selling to enterprise customers with just a few lines of code.</p>
-                <p>Implement features like single sign-on in minutes instead of months.</p>
-            </div>
-            <div class="flex success-buttons">
-                <a href="https://workos.com/signup" target="_blank"><button class='button'>Get Started</button></a>
-                <a href="mailto:sales@workos.com?subject=WorkOS Sales Inquiry" target="_blank"><button
-                        class='button button-outline sales-button'>Contact
-                        Sales</button></a>
+    <div class="flex">
+        <a href="https://workos.com/docs" target="_blank">
+            <button class="button nav-item">Documentation</button>
+        </a>
+        <a href="https://workos.com/docs/reference" target="_blank">
+            <button class="button nav-item">API Reference</button>
+        </a>
+        <a href="https://workos.com/blog" target="_blank">
+            <button class="button nav-item blog-nav-button">Blog</button>
+        </a>
+        <a href="https://workos.com/" target="_blank">
+            <button class="button button-outline">WorkOS</button>
+        </a>
+    </div>
+</div>
+<div class="flex">
+    <div class="logged_in_div_right">
+        <div class="flex_column">
+            <h2>Which Admin Portal would you like to launch?</h2>
+            <div class="flex">
+                <table class="width-65vw">
+                    <tr>
+                        <th>Intent</th>
+                        <th>Create New Session</th>
+                    </tr>
+                    <tr>
+                        <td class="ta-left">SSO</td>
+                        <td>
+                            <a class="button button-outline" href="{{ url('/launch_admin_portal?intent=sso') }}">
+                                <x-lucide-settings-2 class="icon" style="width: 20px; height: 20px" stroke_width="1" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ta-left">Directory Sync</td>
+                        <td>
+                            <a class="button button-outline" href="{{ url('/launch_admin_portal?intent=dsync') }}">
+                                <x-lucide-settings-2 class="icon" style="width: 20px; height: 20px" stroke_width="1" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ta-left">Audit Logs</td>
+                        <td>
+                            <a class="button button-outline" href="{{ url('/launch_admin_portal?intent=audit_logs') }}">
+                                <x-lucide-settings-2 class="icon" style="width: 20px; height: 20px" stroke_width="1" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ta-left">Log Streams</td>
+                        <td>
+                            <a class="button button-outline" href="{{ url('/launch_admin_portal?intent=log_streams') }}">
+                                <x-lucide-settings-2 class="icon" style="width: 20px; height: 20px" stroke_width="1" />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
-  <div class="logged_in_div_right">
-                <div class="flex_column">
-                    <h2>Which Admin Portal would you like to launch?</h2>
-                    <div>
-                        <a href="/sso-admin-portal"><button class='button dsync_button'>Launch SSO</button></a>
-                    </div>
-                    <div>
-                        <a href="/dsync-admin-portal"><button class='button dsync_button'>Launch Directory Sync</button></a>
-                    </div>
-                </div>
-            </div>
-  </div>
+    </div>
 </div>

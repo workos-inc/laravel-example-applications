@@ -1,44 +1,33 @@
 {{ Html::style('css/styles.css'); }}
-<meta name="csrf-token" content="{{ csrf_token() }}">
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <body class="container_success">
-<div class="logged_in_nav">
+    <div class="logged_in_nav">
         <div class="flex">
             <div>
-            <img src="{{ URL::to('/images/workos-logo-with-text.png') }}"alt="workos logo">
+                <img src="{{ URL::to('/images/workos-logo-with-text.png') }}" alt="workos logo">
             </div>
-
         </div>
-        <div>
-            <a href="https://workos.com/docs" target="_blank"><button class='button nav-item'>Documentation</button></a>
-            <a href="https://workos.com/docs/reference" target="_blank"><button class='button nav-item'>API
-                    Reference</button></a>
-            <a href="https://workos.com/blog" target="_blank"><button
-                    class='button nav-item blog-nav-button'>Blog</button></a>
-            <a href="https://workos.com/" target="_blank"><button class='button button-outline'>WorkOS</button></a>
+        <div class="flex">
+            <a href="https://workos.com/docs" target="_blank">
+                <button class="button nav-item">Documentation</button>
+            </a>
+            <a href="https://workos.com/docs/reference" target="_blank">
+                <button class="button nav-item">API Reference</button>
+            </a>
+            <a href="https://workos.com/blog" target="_blank">
+                <button class="button nav-item blog-nav-button">Blog</button>
+            </a>
+            <a href="https://workos.com/" target="_blank">
+                <button class="button button-outline">WorkOS</button>
+            </a>
         </div>
     </div>
     <div class='flex'>
-        <div class="logged_in_div_left">
-            <div class="title-text">
-                <h1>Your app,</h1>
-                <h2 class="home-hero-gradient">Enterprise Ready</h2>
-            </div>
-            <div class="title-subtext">
-                <p>Start selling to enterprise customers with just a few lines of code.</p>
-                <p>Implement features like single sign-on in minutes instead of months.</p>
-            </div>
-            <div class="flex success-buttons">
-                <a href="https://workos.com/signup" target="_blank"><button class='button'>Get Started</button></a>
-                <a href="mailto:sales@workos.com?subject=WorkOS Sales Inquiry" target="_blank"><button
-                        class='button button-outline sales-button'>Contact
-                        Sales</button></a>
-            </div>
-        </div>
         <div class="logged_in_div_right">
             <div class="flex_column">
-                <div class="flex space_between ">
-                    <div class="factor_card">
+                <div class="flex space_between">
+                    <div class="factor_card height-250px">
                         <h2>Enroll SMS Factor</h2>
                         <form method="POST" action="/enroll_sms_factor">
                             <div class="flex">
@@ -48,15 +37,17 @@
                                 </div>
                                 {{ csrf_field() }}
                             </div>
-                            <div>
-                                <button type="submit" name="type" value="sms" id="sms-factor-submit-btn"
-                                    class="button button-outline button-sm" disabled>Enroll New
-                                    Factor</button>
+                            <div class="flex">
+                                <div>
+                                    <button type="submit" name="type" value="sms" id="sms-factor-submit-btn"
+                                        class="button button-outline button-sm" disabled>
+                                        Enroll New Factor
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
-
-                    <div class="factor_card">
+                    <div class="factor_card height-250px">
                         <h2>Enroll TOTP Factor</h2>
                         <div>
                             <div class="flex-column">
@@ -71,9 +62,13 @@
                                 </div>
                                 {{ csrf_field() }}
                             </div>
-                            <div>
-                                <button type="submit" name="type" value="totp" id="totp-factor-submit-btn"
-                                    class="button button-outline button-sm" disabled>Enroll New Factor</button>
+                            <div class="flex">
+                                <div>
+                                    <button value="totp" id="totp-factor-submit-btn"
+                                        class="button button-outline button-sm" disabled>
+                                        Enroll New Factor
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
