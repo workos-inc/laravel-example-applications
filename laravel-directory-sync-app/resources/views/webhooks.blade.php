@@ -33,13 +33,16 @@
                 <a href="{{ url('/') }}"><button class='button button-outline'>Back</button></a>
             </div>
         </div>
-        <div id="webhooks-view" class="width-40vw webhooks-container"></div>
+        <div id="webhooks-view" class="width-40vw webhooks-container">
+            <div class="text_box">
+            </div>
+        </div>
     </div>
 </div>
 <script src="{{ asset('/js/app.js') }}"></script>
-<script>
-    Echo.channel('home')
-        .listen('NewMessage', (e) => {
-            document.getElementById('webhooks-view').innerHTML = JSON.stringify(e.message);
-        });
+<script> 
+        Echo.channel('webhooks')
+            .listen('NewWebhook', (e) => {
+                document.querySelector('.text_box').innerHTML = JSON.stringify(e.webhook)
+            })
 </script>
