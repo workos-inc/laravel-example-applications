@@ -41,8 +41,12 @@
 </div>
 <script src="{{ asset('/js/app.js') }}"></script>
 <script> 
-        Echo.channel('webhooks')
-            .listen('NewWebhook', (e) => {
-                document.querySelector('.text_box').innerHTML = JSON.stringify(e.webhook)
-            })
+    Echo.channel('webhooks')
+        .listen('NewWebhook', (e) => {
+            let webhookString = JSON.stringify(e.webhook);
+            let webhookElement = document.createElement("div");
+            webhookElement.classList.add("webhook"); // Add the "webhook" class
+            webhookElement.textContent = webhookString;
+            document.querySelector('.text_box').appendChild(webhookElement);
+        });
 </script>
