@@ -19,18 +19,22 @@ cd laravel-example-applications/laravel-directory-sync-example && composer i
 ## Configure your environment
 
 1. Grab your [API Key](https://dashboard.workos.com/api-keys).
-2. Run `cp .env.example .env` and add all add values for all WORKOS_ prefixed environmental variables at bottom of .env file except for the Webhook Secret which will be added later.
+2. Run `cp .env.example .env` and add all add values for all WORKOS\_ prefixed environmental variables at bottom of .env file except for the Webhook Secret which will be added later.
 
 ## Run the app
 
 ```sh
 php artisan serve
 ```
+
 Open another terminal and run:
+
 ```sh
-php artisan websockets:serve
+
 npm install --save laravel-echo pusher-js
 npm run dev
+php artisan websockets:serve
+
 ```
 
 Head to `http://localhost:8000`
@@ -39,12 +43,11 @@ Head to `http://localhost:8000`
 
 ### 1. Click on the "Test Webhooks" button to navigate to the webhooks view.
 
-
 ### 2. Start an `ngrok` session
 
 [Ngrok](https://ngrok.com/) is a simple application that allows you to map a local endpoint to a public endpoint.
 
-The application will run on http://localhost:8000. Ngrok will create a tunnel to the application so we can receive webhooks from WorkOS.
+The application will run on http://{{ngrok_tunnel_url}}:8000. Ngrok will create a tunnel to the application so we can receive webhooks from WorkOS.
 
 ```sh
 ./ngrok http 8000
@@ -54,7 +57,7 @@ The application will run on http://localhost:8000. Ngrok will create a tunnel to
 
 Log into the [WorkOS Dashboard](https://dashboard.workos.com/webhooks) and add a Webhook endpoint with the public ngrok URL with `/webhooks` appended.
 
-The local application is listening for webhook requests at http://localhost:8000/webhooks
+The local application is listening for webhook requests at http://{{ngrok_tunnel_url}}:8000/webhooks
 
 ### 4. Set Up Webhooks Secret
 

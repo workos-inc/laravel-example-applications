@@ -191,15 +191,6 @@ div.text_box {
     word-wrap: break-word;
     overflow: scroll;
     border-width: 3px;
-    border-style: solid;
-    border-image: linear-gradient(
-            #a163f1,
-            #6363f1 22%,
-            #3498ea 40%,
-            #40dfa3 67%,
-            rgba(64, 223, 163, 0)
-        )
-        0 100%;
 }
 
 .logged_in_nav {
@@ -426,4 +417,7 @@ th {
 
 #noborder > :first-child {
     display: none;
+}
+.webhook {
+    padding-bottom: 10px;
 }

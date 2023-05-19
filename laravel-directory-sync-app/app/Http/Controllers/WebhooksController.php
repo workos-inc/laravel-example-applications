@@ -42,7 +42,7 @@ class WebhooksController extends Controller
 
         $webhook = (new \WorkOS\Webhook())->constructEvent($sigHeader, $payload, $WORKOS_WEBHOOK_SECRET, 180);    
 
-        event(new NewMessage($webhook));
+        event (new \App\Events\NewWebhook( $webhook));
         return response(200)
                         ->header('Content-Type', 'text/plain');
     }
